@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:composition template="/WEB-INF/template/template.xhtml">
+		<ui:define name="conteudo">
+						
+			<p:panel id="pnl" header="Carrinho" style="margin-bottom:10px;">
+				
+				<p:dataTable value="#{carrinhoBean.getCarrinho()}" var="carrinhoItem" paginator="false"  >
+									
+					<p:column>
+						<f:facet name="header">
+	                        <h:outputText value="Nome" />
+	                    </f:facet>
+	                    <h:outputText value="#{carrinhoItem.item.nome}"  />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+	                        <h:outputText value="Preço" />
+	                    </f:facet>
+	                    <h:outputText value="#{carrinhoItem.getConverteStringPreco()}"  />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+	                        <h:outputText value="Quantidade" />
+	                    </f:facet>
+	                    <h:outputText value="#{carrinhoItem.quantidade}"  />
+					</p:column>
+								
+					<f:facet name="footer">
+				        Valor total: #{carrinhoBean.getConverteStringPrecoTotal()}
+				    </f:facet>
+				</p:dataTable>
+				
+				<br />
+				
+				<p:link id="saveBtn" rendered="#{carrinhoBean.contarItens() > 0}" value="Finalizar Compra" icon="pi pi-check" outcome="/carrinho/finalizarCompra" />
+			</p:panel>                     
+		</ui:define>
+	</ui:composition>
+
+</html>
